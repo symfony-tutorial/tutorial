@@ -1,3 +1,3 @@
 app:
-    path: "/app/example"
-    defaults: {_controller: AppBundle:Default:index}
+    prefix: /category
+    resource: "@AppBundle/Resources/config/category.yml"

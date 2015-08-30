@@ -1,0 +1,11 @@
+category_list:
+    path: /list
+    defaults: { _controller: AppBundle:Category:listCategories}
+category_edit:
+    path: /edit/{categoryId}
+    defaults: { _controller: AppBundle:Category:editCategory, categoryId:0}
+    methods:  [GET]
+category_save:
+    path: /edit/{categoryId}
+    defaults: { _controller: AppBundle:Category:saveCategory, categoryId:0}
+    methods:  [POST]
