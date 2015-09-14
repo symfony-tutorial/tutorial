@@ -15,8 +15,13 @@ class CategoryController extends Controller
 
     public function editCategoryAction($categoryId)
     {
+        try {
+            $category = $this->getCategory($categoryId);
+        } catch (\Exception $exception) {
+            throw $this->createNotFoundException($exception->getMessage(), $exception);
+        }
         $arguments = array(
-            'category' => $this->getCategory($categoryId),
+            'category' => $category,
             'categories' => $this->getCategories()
         );
         return $this->render('AppBundle:category:edit.html.twig', $arguments);
@@ -47,6 +52,9 @@ class CategoryController extends Controller
     private function getCategory($categoryId)
     {
         $categories = $this->getCategories();
+        if (empty($categories[$categoryId])) {
+            throw new \Exception(sprintf('Invalid categoryId %s', $categoryId));
+        }
         return $categories[$categoryId];
     }
 
