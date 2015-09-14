@@ -1,3 +1,8 @@
+category_list_json:
+    path: /list
+    defaults: { _controller: AppBundle:Category:listCategoriesJson}
+    requirements:
+        _format: json
 category_list:
     path: /list
     defaults: { _controller: AppBundle:Category:listCategories}

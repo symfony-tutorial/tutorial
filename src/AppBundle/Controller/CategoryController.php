@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CategoryController extends Controller
 {
@@ -11,6 +12,11 @@ class CategoryController extends Controller
     {
         $arguments = array('categories' => $this->getCategories());
         return $this->render('AppBundle:category:list.html.twig', $arguments);
+    }
+
+    public function listCategoriesJsonAction()
+    {
+        return new JsonResponse($this->getCategories());
     }
 
     public function editCategoryAction($categoryId)
