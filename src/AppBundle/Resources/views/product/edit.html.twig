@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <form method="post">
+        <input type="hidden" value="{{ product.id }}" />
+        <table border="1">
+            <tr>
+                <td>ID</td>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td>
+                    <input type="text" name="code" value="{{ product.code }}" />
+                </td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td>
+                    <input type="text" name="title" value="{{ product.title }}" />
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>
+                    <input type="text" name="description" value="{{ product.description }}" />
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="save"/>
+    </form>
+    <a href="{{ path('product_list') }}">Back to list</a>
+{% endblock %}

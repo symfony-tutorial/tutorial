@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <p>Products</p>
+    <table border="1">
+        <tr>
+            <th>#</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+            {% set editUrl = path('product_edit', {'productId': product.id})%}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.code }}</td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.description }}</td>
+                <td><a href="{{ editUrl }}">Edit</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
