@@ -7,6 +7,7 @@
             <th>Code</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Categories</th>
             <th>Actions</th>
         </tr>
         {% for product in products %}
@@ -16,6 +17,12 @@
                 <td>{{ product.code }}</td>
                 <td>{{ product.title }}</td>
                 <td>{{ product.description }}</td>
+                <td>
+                    {% for category in product.categories %}
+                        {{ category.label }}
+                        {% if not loop.last %}<br/>{% endif %}
+                    {% endfor %}
+                </td>
                 <td><a href="{{ editUrl }}">Edit</a></td>
             </tr>
         {% endfor %}

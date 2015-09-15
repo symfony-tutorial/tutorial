@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\CategoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -14,7 +15,7 @@ class CategoryController extends Controller
         return $this->render('AppBundle:category:list.html.twig', $arguments);
     }
 
-    public function listCategoriesJsonAction()
+    public function listCategoriesJsonAction(\Symfony\Component\HttpFoundation\Request $r)
     {
         return new JsonResponse($this->getCategories());
     }
@@ -40,28 +41,14 @@ class CategoryController extends Controller
 
     private function getCategories()
     {
-        return array(
-            1 => array('id' => 1, 'label' => 'Phones', 'parent' => null),
-            2 => array('id' => 2, 'label' => 'Computers', 'parent' => null),
-            3 => array('id' => 3, 'label' => 'Tablets', 'parent' => null),
-            4 => array('id' => 4, 'label' => 'Desktop', 'parent' => array(
-                    'id' => 2,
-                    'label' => 'Computers')
-            ),
-            5 => array('id' => 5, 'label' => 'Laptop', 'parent' => array(
-                    'id' => 2,
-                    'label' => 'Computers')
-            ),
-        );
+        $categoryService = new CategoryService();
+        return $categoryService->getCategories();
     }
 
     private function getCategory($categoryId)
     {
-        $categories = $this->getCategories();
-        if (empty($categories[$categoryId])) {
-            throw new \Exception(sprintf('Invalid categoryId %s', $categoryId));
-        }
-        return $categories[$categoryId];
+        $categoryService = new CategoryService();
+        return $categoryService->getCategory($categoryId);
     }
 
 }

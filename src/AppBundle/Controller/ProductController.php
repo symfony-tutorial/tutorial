@@ -30,11 +30,36 @@ class ProductController extends Controller
 
     private function getProducts()
     {
+        $categoryService = new \AppBundle\Service\CategoryService();
         return array(
-            1 => array('id' => 1, 'title' => 'Padfone2', 'code' => 'padfone2', 'description' => 'an awesome padfone'),
-            2 => array('id' => 2, 'title' => 'Gforce 750x df-15', 'code' => 'gforce750xdf15', 'description' => 'an awesome graphic card'),
-            3 => array('id' => 3, 'title' => 'Acer aspire 25147', 'code' => 'aceraspire25147', 'description' => 'an awesome laptop'),
-            4 => array('id' => 4, 'title' => 'Allview T-152 2Gb', 'code' => 'allviewt1522gb', 'description' => 'an awesome tablet'),
+            1 => array(
+                'id' => 1,
+                'title' => 'Padfone2',
+                'code' => 'padfone2',
+                'description' => 'an awesome padfone',
+                'categories' => array($categoryService->getCategory(1), $categoryService->getCategory(3))
+            ),
+            2 => array(
+                'id' => 2,
+                'title' => 'Gforce 750x df-15',
+                'code' => 'gforce750xdf15',
+                'description' => 'an awesome graphic card',
+                'categories' => array($categoryService->getCategory(2))
+            ),
+            3 => array(
+                'id' => 3,
+                'title' => 'Acer aspire 25147',
+                'code' => 'aceraspire25147',
+                'description' => 'an awesome laptop',
+                'categories' => array($categoryService->getCategory(5))
+            ),
+            4 => array(
+                'id' => 4,
+                'title' => 'Allview T-152 2Gb',
+                'code' => 'allviewt1522gb',
+                'description' => 'an awesome tablet',
+                'categories' => array($categoryService->getCategory(3))
+            ),
         );
     }
 
