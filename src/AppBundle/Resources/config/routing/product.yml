@@ -1,0 +1,11 @@
+product_list:
+    path: /list
+    defaults: { _controller: AppBundle:Product:listProducts}
+product_edit:
+    path: /edit/{productId}
+    defaults: { _controller: AppBundle:Product:editProduct, productId:0}
+    methods:  [GET]
+product_save:
+    path: /edit/{categoryId}
+    defaults: { _controller: AppBundle:Product:saveProduct, productId:0}
+    methods:  [POST]
