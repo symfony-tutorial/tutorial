@@ -41,13 +41,13 @@ class CategoryController extends Controller
 
     private function getCategories()
     {
-        $categoryService = new CategoryService();
+        $categoryService = $this->container->get(CategoryService::ID);
         return $categoryService->getCategories();
     }
 
     private function getCategory($categoryId)
     {
-        $categoryService = new CategoryService();
+        $categoryService = $this->container->get(CategoryService::ID);
         return $categoryService->getCategory($categoryId);
     }
 

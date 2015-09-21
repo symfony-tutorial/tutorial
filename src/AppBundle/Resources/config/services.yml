@@ -1,0 +1,7 @@
+services:
+    app.category:
+        class: AppBundle\Service\CategoryService
+        arguments: ["@doctrine.orm.entity_manager"]
+    app.product:
+        class: AppBundle\Service\ProductService
+        arguments: ["@doctrine.orm.entity_manager"]
