@@ -1,6 +1,6 @@
 app_category:
     prefix: /category
-    resource: "@AppBundle/Resources/config/category.yml"
+    resource: "@AppBundle/Resources/config/routing/category.yml"
 app_product:
     prefix: /product
-    resource: "@AppBundle/Resources/config/product.yml"
+    resource: "@AppBundle/Resources/config/routing/product.yml"
