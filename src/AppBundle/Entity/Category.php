@@ -65,7 +65,7 @@ class Category
         return $this;
     }
 
-    public function setParentCategory(Category $parentCategory = null)
+    public function setParent(Category $parentCategory = null)
     {
         $this->parentCategory = $parentCategory;
         return $this;

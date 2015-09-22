@@ -53,7 +53,7 @@ class CategoryFixtures extends AbstractFixture implements OrderedFixtureInterfac
     {
         $this->categoriesCount ++;
         $category = new Category();
-        $category->setLabel($label)->setParentCategory($parentCategory);
+        $category->setLabel($label)->setParent($parentCategory);
         $this->manager->persist($category);
         $this->setReference(sprintf('category_%s', $this->categoriesCount), $category);
         
