@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -71,4 +72,14 @@ class Category
         return $this;
     }
 
+        /**
+     * @Assert\IsTrue(message = "A category cannot be the parent of itself")
+     */
+    public function isNotSameAsParent()
+    {
+        if (!$this->getParent()) {
+            return true;
+        }
+        return $this->getId() !== $this->getParent()->getId();
+    }
 }
