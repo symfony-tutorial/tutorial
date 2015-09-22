@@ -15,8 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
     const REPOSITORY = 'AppBundle:Category';
-    
+
     /**
      * @var integer
      *
@@ -56,6 +57,18 @@ class Category
     public function getParent()
     {
         return $this->parentCategory;
+    }
+
+    public function setLabel($label)
+    {
+        $this->label = $label;
+        return $this;
+    }
+
+    public function setParentCategory(Category $parentCategory = null)
+    {
+        $this->parentCategory = $parentCategory;
+        return $this;
     }
 
 }
