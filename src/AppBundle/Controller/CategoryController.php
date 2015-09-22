@@ -30,11 +30,13 @@ class CategoryController extends Controller
         } catch (\Exception $exception) {
             throw $this->createNotFoundException($exception->getMessage(), $exception);
         }
-        $form = $this->createCategoryEditForm($category);
+        $editForm = $this->createCategoryEditForm($category);
+        $deleteForm = $this->creatCategoryeDeleteForm($categoryId);
 
         return $this->render('AppBundle:category:edit.html.twig', array(
                     'entity' => $category,
-                    'edit_form' => $form->createView(),
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView()
         ));
     }
 
@@ -78,6 +80,47 @@ class CategoryController extends Controller
     {
         $categoryService = $this->container->get(CategoryService::ID);
         return $categoryService->getCategory($categoryId);
+    }
+
+    public function deleteCategoryAction(Request $request, $categoryId)
+    {
+        $form = $this->creatCategoryeDeleteForm($categoryId);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try {
+                $category = $this->getCategory($categoryId);
+            } catch (\Exception $exception) {
+                throw $this->createNotFoundException($exception->getMessage(), $exception);
+            }
+
+            if (!$category) {
+                throw $this->createNotFoundException('Unable to find Category entity.');
+            }
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($category);
+            $manager->flush();
+        }
+
+        return $this->redirect($this->generateUrl('category_list'));
+    }
+
+    public function deleteCategoryFormAction(Request $request, $categoryId)
+    {
+        $form = $this->creatCategoryeDeleteForm($categoryId);
+
+        return $this->render($view);
+    }
+
+    private function creatCategoryeDeleteForm($categoryId)
+    {
+        $url = $this->generateUrl('category_delete', array('categoryId' => $categoryId));
+        return $this->createFormBuilder()
+                        ->setAction($url)
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm();
     }
 
 }

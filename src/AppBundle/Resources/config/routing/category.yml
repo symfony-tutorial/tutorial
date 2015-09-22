@@ -13,3 +13,6 @@ category_save:
     path: /edit/{categoryId}
     defaults: { _controller: AppBundle:Category:saveCategory, categoryId:0}
     methods:  [POST]
+category_delete:
+    path: /delete/{categoryId}
+    defaults: { _controller: AppBundle:Category:deleteCategory}
