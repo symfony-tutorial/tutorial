@@ -92,4 +92,28 @@ class Product
         return $this->categories;
     }
 
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setCategories(\Doctrine\Common\Collections\Collection $categories)
+    {
+        $this->categories = $categories;
+        return $this;
+    }
+
 }

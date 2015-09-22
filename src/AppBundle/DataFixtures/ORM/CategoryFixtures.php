@@ -4,13 +4,15 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Category;
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
-class CategoryFixtures extends AbstractFixture
+class CategoryFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 
     /**
      *
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var ObjectManager
      */
     protected $manager;
     private $categoriesCount = 0;
@@ -30,7 +32,7 @@ class CategoryFixtures extends AbstractFixture
         'natural products' => array('cosmetics', 'hygiene', 'medicinal plants'),
     );
 
-    public function load(\Doctrine\Common\Persistence\ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
         $this->createAndPersistData();
@@ -53,8 +55,14 @@ class CategoryFixtures extends AbstractFixture
         $category = new Category();
         $category->setLabel($label)->setParentCategory($parentCategory);
         $this->manager->persist($category);
-
+        $this->setReference(sprintf('category_%s', $this->categoriesCount), $category);
+        
         return $category;
+    }
+
+    public function getOrder()
+    {
+        return 1;
     }
 
 }
