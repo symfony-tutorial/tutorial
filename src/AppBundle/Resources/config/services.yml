@@ -5,3 +5,7 @@ services:
     app.product:
         class: AppBundle\Service\ProductService
         arguments: ["@doctrine.orm.entity_manager"]
+    app.listener.soft_delete:
+        class: AppBundle\Event\Listener\SoftDelete
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }

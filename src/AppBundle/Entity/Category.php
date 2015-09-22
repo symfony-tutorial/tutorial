@@ -44,6 +44,36 @@ class Category
      * })
      */
     private $parentCategory;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=true)
+     */
+    private $deleted = false;
+    
+        /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Address
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
     public function getId()
     {

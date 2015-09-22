@@ -21,9 +21,14 @@ class CategoryService
         $this->entityManager = $manager;
     }
 
-    public function getCategories()
+    public function getCategories($includeDeleted = false)
     {
-        return $this->entityManager->getRepository(Category::REPOSITORY)->findAll();
+        $criteria = array();
+        if (!$includeDeleted) {
+            $criteria = array('deleted' => false);
+        }
+
+        return $this->entityManager->getRepository(Category::REPOSITORY)->findBy($criteria);
     }
 
     public function getCategory($categoryId)
