@@ -39,7 +39,7 @@ class Category
      *
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="parent_category_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="parent_category_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $parentCategory;

@@ -4,7 +4,10 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
@@ -32,6 +35,16 @@ class CategoryType extends AbstractType
     public function getName()
     {
         return 'app_category';
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        $parentCategory = $form->getData()->getParent();
+        $emptyChoice = new ChoiceView(
+                new Category(), null, 'None', array('selected' => null === $parentCategory)
+        );
+
+        array_unshift($view->children['parent']->vars['choices'], $emptyChoice);
     }
 
 }
