@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ProductStock
 {
+
+    const REPOSITORY = 'AppBundle:ProductStock';
+
     /**
      * @var integer
      *
@@ -48,5 +51,83 @@ class ProductStock
      */
     private $warehouse;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     * @return ProductStock
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer 
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     * @return ProductStock
+     */
+    public function setProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set warehouse
+     *
+     * @param \AppBundle\Entity\Warehouse $warehouse
+     * @return ProductStock
+     */
+    public function setWarehouse(\AppBundle\Entity\Warehouse $warehouse)
+    {
+        $this->warehouse = $warehouse;
+
+        return $this;
+    }
+
+    /**
+     * Get warehouse
+     *
+     * @return \AppBundle\Entity\Warehouse 
+     */
+    public function getWarehouse()
+    {
+        return $this->warehouse;
+    }
 
 }

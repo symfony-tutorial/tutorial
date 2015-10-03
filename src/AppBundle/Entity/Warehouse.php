@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Warehouse
 {
+
+    const REPOSITORY = 'AppBundle:Warehouse';
+
     /**
      * @var integer
      *
@@ -28,5 +31,37 @@ class Warehouse
      */
     private $name;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Warehouse
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
 }

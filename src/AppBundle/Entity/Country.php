@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Country
 {
+
+    const REPOSITORY = 'AppBundle:Country';
+
     /**
      * @var integer
      *
@@ -42,5 +45,83 @@ class Country
      */
     private $currency;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Country
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Country
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set currency
+     *
+     * @param string $currency
+     * @return Country
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
 
 }

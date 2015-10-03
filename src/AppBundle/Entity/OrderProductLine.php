@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OrderProductLine
 {
+
+    const REPOSITORY = 'AppBundle:OrderProductLine';
+
     /**
      * @var integer
      *
@@ -48,5 +51,83 @@ class OrderProductLine
      */
     private $productSale;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     * @return OrderProductLine
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer 
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set order
+     *
+     * @param \AppBundle\Entity\Order $order
+     * @return OrderProductLine
+     */
+    public function setOrder(\AppBundle\Entity\Order $order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return \AppBundle\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set productSale
+     *
+     * @param \AppBundle\Entity\ProductSale $productSale
+     * @return OrderProductLine
+     */
+    public function setProductSale(\AppBundle\Entity\ProductSale $productSale)
+    {
+        $this->productSale = $productSale;
+
+        return $this;
+    }
+
+    /**
+     * Get productSale
+     *
+     * @return \AppBundle\Entity\ProductSale 
+     */
+    public function getProductSale()
+    {
+        return $this->productSale;
+    }
 
 }

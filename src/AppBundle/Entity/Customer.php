@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Customer
 {
+
+    const REPOSITORY = 'AppBundle:Customer';
+
     /**
      * @var integer
      *
@@ -62,6 +65,141 @@ class Customer
     public function __construct()
     {
         $this->address = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Customer
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Customer
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set mobilePhone
+     *
+     * @param string $mobilePhone
+     * @return Customer
+     */
+    public function setMobilePhone($mobilePhone)
+    {
+        $this->mobilePhone = $mobilePhone;
+
+        return $this;
+    }
+
+    /**
+     * Get mobilePhone
+     *
+     * @return string 
+     */
+    public function getMobilePhone()
+    {
+        return $this->mobilePhone;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Customer
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Add address
+     *
+     * @param \AppBundle\Entity\Address $address
+     * @return Customer
+     */
+    public function addAddress(\AppBundle\Entity\Address $address)
+    {
+        $this->address[] = $address;
+
+        return $this;
+    }
+
+    /**
+     * Remove address
+     *
+     * @param \AppBundle\Entity\Address $address
+     */
+    public function removeAddress(\AppBundle\Entity\Address $address)
+    {
+        $this->address->removeElement($address);
+    }
+
+    /**
+     * Get address
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 
 }

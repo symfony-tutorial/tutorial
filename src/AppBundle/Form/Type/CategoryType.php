@@ -17,7 +17,7 @@ class CategoryType extends AbstractType
     {
         $builder
                 ->add('label')
-                ->add('parent', 'entity', array('label' => 'parent category',
+                ->add('parentCategory', 'entity', array('label' => 'parent category',
                     'class' => Category::REPOSITORY,
                     'choice_label' => 'label',
                 ))
@@ -39,12 +39,12 @@ class CategoryType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $parentCategory = $form->getData()->getParent();
+        $parentCategory = $form->getData()->getParentCategory();
         $emptyChoice = new ChoiceView(
                 new Category(), null, 'None', array('selected' => null === $parentCategory)
         );
 
-        array_unshift($view->children['parent']->vars['choices'], $emptyChoice);
+        array_unshift($view->children['parentCategory']->vars['choices'], $emptyChoice);
     }
 
 }

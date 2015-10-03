@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
+    const REPOSITORY = 'AppBundle:Category';
+
     /**
      * @var integer
      *
@@ -33,7 +36,7 @@ class Category
      *
      * @ORM\Column(name="deleted", type="boolean", nullable=true, options={"default"=0})
      */
-    private $deleted;
+    private $deleted = 0;
 
     /**
      * @var \Category
@@ -48,7 +51,7 @@ class Category
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Product", inversedBy="category")
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="categories")
      * @ORM\JoinTable(name="category_has_product",
      *   joinColumns={
      *     @ORM\JoinColumn(name="category_id", referencedColumnName="id")
@@ -66,6 +69,85 @@ class Category
     public function __construct()
     {
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     * @return Category
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string 
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Category
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set parentCategory
+     *
+     * @param \AppBundle\Entity\Category $parentCategory
+     * @return Category
+     */
+    public function setParentCategory(\AppBundle\Entity\Category $parentCategory = null)
+    {
+        $this->parentCategory = $parentCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get parentCategory
+     *
+     * @return \AppBundle\Entity\Category 
+     */
+    public function getParentCategory()
+    {
+        return $this->parentCategory;
     }
 
 }
