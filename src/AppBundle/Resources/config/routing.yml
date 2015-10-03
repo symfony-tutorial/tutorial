@@ -1,3 +1,7 @@
+app_country:
+    resource: "@AppBundle/Resources/config/routing/country.yml"
+    prefix:   /country
+
 app_category:
     prefix: /category
     resource: "@AppBundle/Resources/config/routing/category.yml"
