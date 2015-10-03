@@ -12,12 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
-    const REPOSITORY = 'AppBundle:Product';
-
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -47,17 +45,9 @@ class Product
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Category")
-     * @ORM\JoinTable(name="category_has_product",
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     *   },
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="product")
      */
-    private $categories;
+    private $category;
 
     /**
      * Constructor
@@ -65,55 +55,6 @@ class Product
     public function __construct()
     {
         $this->category = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setCategories(\Doctrine\Common\Collections\Collection $categories)
-    {
-        $this->categories = $categories;
-        return $this;
     }
 
 }

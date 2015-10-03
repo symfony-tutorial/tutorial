@@ -3,26 +3,19 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
  *
- * @ORM\Table(
- *  name="category",
- *  indexes={@ORM\Index(name="idx_parent_category_id",columns={"parent_category_id"})}
- * )
+ * @ORM\Table(name="category", indexes={@ORM\Index(name="idx_parent_category_id", columns={"parent_category_id"})})
  * @ORM\Entity
  */
 class Category
 {
-
-    const REPOSITORY = 'AppBundle:Category';
-
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="smallint", nullable=false)
+     * @ORM\Column(name="id", type="smallint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -36,80 +29,43 @@ class Category
     private $label;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=true, options={"default"=0})
+     */
+    private $deleted;
+
+    /**
      * @var \Category
      *
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="parent_category_id", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="parent_category_id", referencedColumnName="id")
      * })
      */
     private $parentCategory;
-    
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="deleted", type="boolean", nullable=true)
-     */
-    private $deleted = false;
-    
-        /**
-     * Set deleted
-     *
-     * @param boolean $deleted
-     * @return Address
-     */
-    public function setDeleted($deleted)
-    {
-        $this->deleted = $deleted;
-
-        return $this;
-    }
 
     /**
-     * Get deleted
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @return boolean 
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="category")
+     * @ORM\JoinTable(name="category_has_product",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    public function getDeleted()
-    {
-        return $this->deleted;
-    }
+    private $product;
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    public function getParent()
-    {
-        return $this->parentCategory;
-    }
-
-    public function setLabel($label)
-    {
-        $this->label = $label;
-        return $this;
-    }
-
-    public function setParent(Category $parentCategory = null)
-    {
-        $this->parentCategory = $parentCategory;
-        return $this;
-    }
-
-        /**
-     * @Assert\IsTrue(message = "A category cannot be the parent of itself")
+    /**
+     * Constructor
      */
-    public function isNotSameAsParent()
+    public function __construct()
     {
-        if (!$this->getParent()) {
-            return true;
-        }
-        return $this->getId() !== $this->getParent()->getId();
+        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 }
