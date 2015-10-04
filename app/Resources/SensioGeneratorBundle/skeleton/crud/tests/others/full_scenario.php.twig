@@ -1,26 +1,17 @@
-<?php
-
-namespace AppBundle\Tests\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-use Symfony\Component\HttpKernel\Client;
-
-class CountryControllerTest extends WebTestCase
-{
+    {%- set formType =  form_type_name|lower %}
     
     public function testIndexAction()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/country/');
-        $unexpectedStatus = "Unexpected HTTP status code for GET /country/";
+        $crawler = $client->request('GET', '/{{ route_prefix }}/');
+        $unexpectedStatus = "Unexpected HTTP status code for GET /{{ route_prefix }}/";
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), $unexpectedStatus);
     }
     
     public function testNewAction()
     {
         $client = static::createClient();
-        $crawler = $this->createNewEntity($client, '/country/', 'appbundle_country');
+        $crawler = $this->createNewEntity($client, '/{{route_prefix}}/', '{{formType}}');
 
         foreach ($this->getNewFormFields() as $value) {
             $missingElementError = sprintf('Missing element td:contains("%s")', $value);
@@ -32,14 +23,14 @@ class CountryControllerTest extends WebTestCase
     public function testUpdateAction()
     {
         $client = static::createClient();
-        $crawler = $this->createNewEntity($client, '/country/', 'appbundle_country');
+        $crawler = $this->createNewEntity($client, '/{{route_prefix}}/', '{{formType}}');
         
         $crawler = $client->click($crawler->selectLink('Edit')->link());
         
         $formFields = $this->getUpdateFormFields();
 
         $form = $crawler->selectButton('Update')->form(
-            $this->constructFormValues($formFields, 'appbundle_country')
+            $this->constructFormValues($formFields, '{{formType}}')
         );
 
         $client->submit($form);
@@ -59,9 +50,8 @@ class CountryControllerTest extends WebTestCase
     protected function getNewFormFields()
     {
         return array(
-            'code' => 'code',
-            'name' => 'name',
-            'currency' => 'eur',
+            'field_name' => 'value',
+            //other fields
         );
     }
     /**
@@ -94,5 +84,4 @@ class CountryControllerTest extends WebTestCase
         $client->submit($form);
         return $client->followRedirect();
     }
-        
-}
+    

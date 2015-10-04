@@ -1,0 +1,15 @@
+{% extends "skeleton/crud/tests/test.php.twig" %}
+
+{% block use_statements %}
+{{ parent() }}
+use Symfony\Component\HttpKernel\Client;
+{% endblock use_statements %}
+
+{% block class_body %}
+    {%- if 'new' in actions %}
+        {%- include 'crud/tests/others/full_scenario.php.twig' -%}
+    {%- else %}
+        {%- include 'crud/tests/others/short_scenario.php.twig' -%}
+    {%- endif %}
+    
+{% endblock class_body %}
