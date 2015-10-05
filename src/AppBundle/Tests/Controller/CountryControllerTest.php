@@ -12,15 +12,15 @@ class CountryControllerTest extends WebTestCase
     public function testIndexAction()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/country/');
-        $unexpectedStatus = "Unexpected HTTP status code for GET /country/";
+        $crawler = $client->request('GET', '/country');
+        $unexpectedStatus = "Unexpected HTTP status code for GET /country";
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), $unexpectedStatus);
     }
     
     public function testNewAction()
     {
         $client = static::createClient();
-        $crawler = $this->createNewEntity($client, '/country/', 'appbundle_country');
+        $crawler = $this->createNewEntity($client, '/country', 'appbundle_country');
 
         foreach ($this->getNewFormFields() as $value) {
             $missingElementError = sprintf('Missing element td:contains("%s")', $value);
@@ -32,7 +32,7 @@ class CountryControllerTest extends WebTestCase
     public function testUpdateAction()
     {
         $client = static::createClient();
-        $crawler = $this->createNewEntity($client, '/country/', 'appbundle_country');
+        $crawler = $this->createNewEntity($client, '/country', 'appbundle_country');
         
         $crawler = $client->click($crawler->selectLink('Edit')->link());
         

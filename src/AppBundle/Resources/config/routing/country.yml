@@ -1,6 +1,8 @@
 country:
-    path:     /
-    defaults: { _controller: "AppBundle:Country:index" }
+    path:     /{page}
+    defaults: { _controller: "AppBundle:Country:index", page:1 }
+    requirements:
+        page:  \d+
 
 country_show:
     path:     /{id}/show

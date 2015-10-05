@@ -42,4 +42,14 @@
             </a>
         </li>
     </ul>
+    <table>
+        <tr>
+            <td>Navigation</td>
+            {% for page in 1..totalPages %}
+                <td>
+                    <a href="{{ path('country', { 'page': page }) }}">{{page}}</a>
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
     {% endblock %}
