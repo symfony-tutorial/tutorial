@@ -58,10 +58,11 @@ class CountryControllerTest extends WebTestCase
      */
     protected function getNewFormFields()
     {
-        return array(
-            'field_name' => 'value',
-            //other fields
-        );
+            return array(
+                'code' => 'str_c',
+                'name' => 'str_name',
+                'currency' => 'str',
+                );
     }
     /**
      * 

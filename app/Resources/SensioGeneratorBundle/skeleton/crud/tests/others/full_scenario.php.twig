@@ -49,9 +49,10 @@
      */
     protected function getNewFormFields()
     {
-        return array(
-            'field_name' => 'value',
-            //other fields
+            return array(
+                {% for field in fields -%}
+                    '{{field.name}}' => '{{field.value}}',
+                {% endfor -%}
         );
     }
     /**
