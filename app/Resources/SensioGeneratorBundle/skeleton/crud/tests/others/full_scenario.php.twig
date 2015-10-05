@@ -3,15 +3,15 @@
     public function testIndexAction()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/{{ route_prefix }}/');
-        $unexpectedStatus = "Unexpected HTTP status code for GET /{{ route_prefix }}/";
+        $crawler = $client->request('GET', '/{{ route_prefix }}');
+        $unexpectedStatus = "Unexpected HTTP status code for GET /{{ route_prefix }}";
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), $unexpectedStatus);
     }
     
     public function testNewAction()
     {
         $client = static::createClient();
-        $crawler = $this->createNewEntity($client, '/{{route_prefix}}/', '{{formType}}');
+        $crawler = $this->createNewEntity($client, '/{{route_prefix}}', '{{formType}}');
 
         foreach ($this->getNewFormFields() as $value) {
             $missingElementError = sprintf('Missing element td:contains("%s")', $value);
@@ -23,7 +23,7 @@
     public function testUpdateAction()
     {
         $client = static::createClient();
-        $crawler = $this->createNewEntity($client, '/{{route_prefix}}/', '{{formType}}');
+        $crawler = $this->createNewEntity($client, '/{{route_prefix}}', '{{formType}}');
         
         $crawler = $client->click($crawler->selectLink('Edit')->link());
         

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use AppBundle\Entity\Country;
 use AppBundle\Form\CountryType;
 
@@ -15,27 +16,26 @@ class CountryController extends Controller
 {
 
     /**
-     * Lists Country entities per page.
+     * Lists all Country entities.
      *
      */
     public function indexAction($page = 1)
     {
         $recordsPerPage = 10;
         $manager = $this->getDoctrine()->getManager();
-        $dql = sprintf('SELECT e from %s e', Country::REPOSITORY);
+        $dql = sprintf('SELECT e from %s e', 'AppBundle:Country');
         $query = $manager->createQuery($dql)
                 ->setFirstResult(($page - 1) * $recordsPerPage)
                 ->setMaxResults($recordsPerPage);
 
         $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($query, false);
-
+    
         return $this->render('AppBundle:Country:index.html.twig', array(
-                    'entities' => $paginator->getIterator(),
-                    'currentPage' => $page,
-                    'totalPages' => ceil($paginator->count()/$recordsPerPage)
+                'entities' => $paginator->getIterator(),
+                'currentPage' => $page,
+                'totalPages' => ceil($paginator->count()/$recordsPerPage)
         ));
     }
-
     /**
      * Creates a new Country entity.
      *
@@ -55,8 +55,8 @@ class CountryController extends Controller
         }
 
         return $this->render('AppBundle:Country:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form'   => $form->createView(),
         ));
     }
 
@@ -86,11 +86,11 @@ class CountryController extends Controller
     public function newAction()
     {
         $entity = new Country();
-        $form = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity);
 
         return $this->render('AppBundle:Country:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form'   => $form->createView(),
         ));
     }
 
@@ -111,8 +111,8 @@ class CountryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Country:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -134,19 +134,19 @@ class CountryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Country:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Creates a form to edit a Country entity.
-     *
-     * @param Country $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to edit a Country entity.
+    *
+    * @param Country $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createEditForm(Country $entity)
     {
         $form = $this->createForm(new CountryType(), $entity, array(
@@ -158,7 +158,6 @@ class CountryController extends Controller
 
         return $form;
     }
-
     /**
      * Edits an existing Country entity.
      *
@@ -184,12 +183,11 @@ class CountryController extends Controller
         }
 
         return $this->render('AppBundle:Country:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
-
     /**
      * Deletes a Country entity.
      *
@@ -224,11 +222,10 @@ class CountryController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('country_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
+            ->setAction($this->generateUrl('country_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
         ;
     }
-
 }

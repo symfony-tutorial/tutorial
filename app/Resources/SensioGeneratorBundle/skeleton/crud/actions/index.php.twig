@@ -1,0 +1,51 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Lists all {{ entity }} entities.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/", name="{{ route_name_prefix }}")
+     * @Method("GET")
+     * @Template()
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function indexAction($page = 1)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+{# changed code #}
+        $recordsPerPage = 10;
+        $manager = $this->getDoctrine()->getManager();
+        $dql = sprintf('SELECT e from %s e', '{{ bundle }}:{{ entity }}');
+        $query = $manager->createQuery($dql)
+                ->setFirstResult(($page - 1) * $recordsPerPage)
+                ->setMaxResults($recordsPerPage);
+
+        $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($query, false);
+    {# end changed code #}
+{% endblock method_body %}
+
+{% block method_return %}
+{% if 'annotation' == format %}
+        return array(
+            {# changed code #}
+            'entities' => $paginator->getIterator(),
+            'currentPage' => $page,
+            'totalPages' => ceil($paginator->count()/$recordsPerPage)
+            {# end changed code #}
+        );
+{% else %}
+        return $this->render('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:index.html.twig', array(
+{# changed code #}
+                'entities' => $paginator->getIterator(),
+                'currentPage' => $page,
+                'totalPages' => ceil($paginator->count()/$recordsPerPage)
+{# end changed code #}
+        ));
+{% endif %}
+{% endblock method_return %}
+    }
